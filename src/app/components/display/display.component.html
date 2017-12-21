@@ -1,0 +1,31 @@
+<input type="text" class="searchbox" [(ngModel)]="notificationFilter.notificationName" placeholder="Search By Notification name">
+<button id="opener" (click)='openDialogBox()' class="btn btn-primary">Add New Notifications</button> 
+<table id="exp" class="display table table-bordered" [mfData]="data" #mf="mfDataTable">
+<thead><tr class="active" >
+<th><mfDefaultSorter by="id">ID</mfDefaultSorter></th>
+<th> <mfDefaultSorter by="notificationName">NOTIFICATION NAME</mfDefaultSorter></th>
+<th><mfDefaultSorter by="message">MESSAGE</mfDefaultSorter></th>
+<th><mfDefaultSorter by="notificationSub">NOTIFICATION SUBJECT</mfDefaultSorter></th>
+<th><mfDefaultSorter by="createdTime">CREATED TIME</mfDefaultSorter></th>
+<th><mfDefaultSorter by="scheduleDate">SCHEDULE DATE</mfDefaultSorter></th>
+<th><mfDefaultSorter by="emailId">EMAILID</mfDefaultSorter></th>
+<th>Events</th>
+</tr></thead>
+<tbody>
+  <tr  *ngFor="let obj of mf.data | filterBy: notificationFilter| paginate: { itemsPerPage: 8, currentPage: p} ">
+  <td> <label class="formfield">{{obj.id}}</label> </td>
+  <td> <label class="formfield">{{obj.notificationName}}</label> </td>
+  <td> <label class="formfield">{{obj.message}}</label> </td>
+  <td> <label class="formfield">{{obj.notificationSub}}</label> </td>
+  <td> <label class="formfield">{{obj.createdTime}}</label> </td>
+  <td> <label class="formfield">{{obj.scheduleDate}}</label> </td>
+  <td> <label class="formfield">{{obj.emailId}}</label> </td>
+  <td><button class="btn btn-danger" id="deleteBtn" (click)=deleteId(obj.id)>Delete</button></td>
+  </tr>
+</tbody> 
+</table>
+<pagination-controls (pageChange)="p = $event"
+maxSize="8"
+directionLinks="true"
+autoHide="true">
+</pagination-controls>
